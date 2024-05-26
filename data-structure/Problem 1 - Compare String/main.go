@@ -13,9 +13,7 @@ func Compare(a, b string) string {
 		b = temp
 	}
 	if strings.Contains(a, b) {
-		if len(a) > len(b) {
-			hasil = b
-		}
+		hasil = b
 	} else {
 		hasil = "False"
 	}
