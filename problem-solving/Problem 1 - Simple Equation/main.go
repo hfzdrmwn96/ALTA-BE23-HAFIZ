@@ -21,7 +21,7 @@ func SimpleEquations(a, b, c int) {
 	if found {
 		fmt.Printf("Output: %d %d %d\n\n", x, y, z)
 	} else {
-		fmt.Println("Output: No solution\n")
+		fmt.Printf("Output: No solution\n\n")
 	}
 
 }
@@ -30,5 +30,5 @@ func main() {
 	SimpleEquations(1, 2, 3)  // no solution
 	SimpleEquations(6, 6, 14) // 1 2 3
 	SimpleEquations(6, 8, 12) // 2 2 2
-	SimpleEquations(4, 2, 13) // 2 2 2
+	SimpleEquations(4, 2, 13) // no solution
 }
