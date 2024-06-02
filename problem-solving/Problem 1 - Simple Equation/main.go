@@ -5,12 +5,16 @@ import "fmt"
 func SimpleEquations(a, b, c int) {
 	found := false
 	var x, y, z int
-	for x = 1; x <= a/2; x++ {
-		y = (a - x) / 2
-		z = a - x - y
+	for x = 1; x <= a/3; x++ {
+		for y = a - x - 1; y >= a/3; y-- {
+			z = a - x - y
+			if x*y*z == b && x*x+y*y+z*z == c {
+				found = true
+				break
+			}
 
-		if x*y*z == b && x*x+y*y+z*z == c {
-			found = true
+		}
+		if found {
 			break
 		}
 
@@ -27,8 +31,10 @@ func SimpleEquations(a, b, c int) {
 }
 
 func main() {
-	SimpleEquations(1, 2, 3)  // no solution
-	SimpleEquations(6, 6, 14) // 1 2 3
-	SimpleEquations(6, 8, 12) // 2 2 2
-	SimpleEquations(4, 2, 13) // no solution
+	SimpleEquations(1, 2, 3)         // no solution
+	SimpleEquations(6, 6, 14)        // 1 2 3
+	SimpleEquations(66, 10648, 1452) // 22 22 22
+	SimpleEquations(4, 2, 13)        // no solution
+	SimpleEquations(21, 231, 179)    // 3 11 7
+	SimpleEquations(42, 1122, 782)   // 3 11 7
 }
