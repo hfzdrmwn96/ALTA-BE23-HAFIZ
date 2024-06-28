@@ -1,9 +1,9 @@
 package users
 
 import (
-	"apibe23/internal/helper"
-	"apibe23/internal/models"
 	"fmt"
+	"todo/internal/helper"
+	"todo/internal/models"
 
 	"github.com/labstack/echo/v4"
 )
@@ -38,6 +38,7 @@ func (uc *UserController) Login(c echo.Context) error {
 	if err != nil {
 		return c.JSON(400, helper.ResponseFormat(400, "input error", nil))
 	}
+
 	result, err := uc.model.Login(input.Email, input.Password)
 
 	if err != nil {

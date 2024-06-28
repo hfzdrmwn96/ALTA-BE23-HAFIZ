@@ -1,6 +1,6 @@
 package users
 
-import "apibe23/internal/models"
+import "todo/internal/models"
 
 type LoginResponse struct {
 	ID       uint   `json:"id"`
