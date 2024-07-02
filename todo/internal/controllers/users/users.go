@@ -1,7 +1,6 @@
 package users
 
 import (
-	"fmt"
 	"todo/internal/helper"
 	"todo/internal/models"
 
@@ -21,8 +20,7 @@ func NewUserController(m *models.UserModel) *UserController {
 func (uc *UserController) Register(c echo.Context) error {
 	var input RegisterRequest
 	err := c.Bind(&input)
-	fmt.Println(input.Address)
-	if err != nil {
+	if err != nil || len(input.Email) == 0 || len(input.Name) == 0 || len(input.Password) == 0 {
 		return c.JSON(400, helper.ResponseFormat(400, "input error", nil))
 	}
 	_, err = uc.model.Register(ToModelUsers(input))

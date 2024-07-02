@@ -30,7 +30,7 @@ func (tm *TodoModel) AddTodo(newTodo Todo) (bool, error) {
 
 func (tm *TodoModel) GetTodos(userID uint) ([]Todo, error) {
 	var result []Todo
-	err := tm.db.Find(&result, userID).Error
+	err := tm.db.Where("user_id = ?", userID).Find(&result).Error
 	if err != nil {
 		return []Todo{}, err
 	}
@@ -39,7 +39,7 @@ func (tm *TodoModel) GetTodos(userID uint) ([]Todo, error) {
 
 func (tm *TodoModel) GetTodo(ID uint, userID uint) (Todo, error) {
 	var result Todo
-	err := tm.db.Where("id = ? & userId = ?", ID, userID).First(&result).Error
+	err := tm.db.Where("id = ? AND user_id = ?", ID, userID).First(&result).Error
 	if err != nil {
 		return Todo{}, err
 	}
@@ -53,4 +53,14 @@ func (tm *TodoModel) UpdateTodo(newTodo Todo) (Todo, error) {
 		return Todo{}, err
 	}
 	return newTodo, nil
+}
+
+func (tm *TodoModel) DeleteTodo(userID uint, id uint) error {
+	err := tm.db.Where("user_id = ? AND id = ?", userID, id).Delete(&Todo{}).Error
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

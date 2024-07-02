@@ -21,6 +21,8 @@ func main() {
 	cfg := configs.ImportSetting()
 	db, _ := configs.ConnectDB(cfg)
 
+	db.AutoMigrate(&models.User{}, &models.Todo{})
+
 	um := models.NewUserModel(db)
 	uc := users.NewUserController(um)
 
@@ -28,12 +30,12 @@ func main() {
 	tc := todos.NewTodoController(tm)
 
 	// Register
-	e.POST("/users", uc.Register)
+	e.POST("/register", uc.Register)
 	e.POST("/login", uc.Login)
-	e.POST("/todos", tc.AddTodo)
+	e.POST("/todos/:userID", tc.AddTodo)
 	e.GET("/todos/:userID", tc.GetTodos)
 	e.PUT("/todos/:userID/:ID", tc.UpdateTodo)
-	// e.DELETE("/todos/:ID", tc.DeleteTodo)
+	e.DELETE("/todos/:userID/:ID", tc.DeleteTodo)
 
 	// Login
 	// Tampilkan semua data

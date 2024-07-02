@@ -19,8 +19,14 @@ func NewTodoController(m *models.TodoModel) *TodoController {
 }
 
 func (tc *TodoController) AddTodo(c echo.Context) error {
+
+	UID, err := strconv.Atoi(c.Param("userID"))
+	if err != nil {
+		return c.JSON(400, helper.ResponseFormat(400, "user id Error", nil))
+	}
 	var input AddTodoRequest
-	err := c.Bind(&input)
+	input.UserID = uint(UID)
+	err = c.Bind(&input)
 	if err != nil {
 		return c.JSON(400, helper.ResponseFormat(400, "input error", nil))
 	}
@@ -70,7 +76,7 @@ func (tc *TodoController) UpdateTodo(c echo.Context) error {
 		return c.JSON(500, helper.ResponseFormat(500, "server error", nil))
 	}
 
-	err = c.Bind(&result.Activity)
+	err = c.Bind(&result)
 	if err != nil {
 		return c.JSON(400, helper.ResponseFormat(400, "input error", nil))
 	}
@@ -84,5 +90,38 @@ func (tc *TodoController) UpdateTodo(c echo.Context) error {
 	}
 
 	return c.JSON(200, helper.ResponseFormat(200, "success", result))
+
+}
+
+func (tc *TodoController) DeleteTodo(c echo.Context) error {
+
+	UID, err := strconv.Atoi(c.Param("userID"))
+	if err != nil {
+		return c.JSON(400, helper.ResponseFormat(400, "user id Error", nil))
+	}
+
+	ID, err := strconv.Atoi(c.Param("ID"))
+	if err != nil {
+		return c.JSON(400, helper.ResponseFormat(400, "user id Error", nil))
+	}
+
+	result, err := tc.model.GetTodo(uint(ID), uint(UID))
+
+	if err != nil {
+		return c.JSON(500, helper.ResponseFormat(500, "server error", nil))
+	}
+
+	err = c.Bind(&result)
+	if err != nil {
+		return c.JSON(400, helper.ResponseFormat(400, "input error", nil))
+	}
+
+	err = tc.model.DeleteTodo(uint(UID), uint(ID))
+
+	if err != nil {
+		return c.JSON(500, helper.ResponseFormat(500, "server error", nil))
+	}
+
+	return c.JSON(200, helper.ResponseFormat(200, "success deleted", nil))
 
 }

@@ -8,15 +8,11 @@ type LoginRequest struct {
 }
 
 type RegisterRequest struct {
-	Name     string          `json:"name"`
-	Password string          `json:"password"`
-	Email    string          `json:"email"`
-	Phone    string          `json:"hp"`
-	Address  []AlamatRequest `json:"address"`
-}
-
-type AlamatRequest struct {
-	Alamat string `json:"alamat"`
+	Name     string `json:"name"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
+	Phone    string `json:"hp"`
+	Address  string `json:"address"`
 }
 
 func ToModelUsers(r RegisterRequest) models.User {
