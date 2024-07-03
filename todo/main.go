@@ -29,7 +29,6 @@ func main() {
 	tm := models.NewTodoModel(db)
 	tc := todos.NewTodoController(tm)
 
-	// Register
 	e.POST("/register", uc.Register)
 	e.POST("/login", uc.Login)
 	e.POST("/todos/:userID", tc.AddTodo)
@@ -37,8 +36,5 @@ func main() {
 	e.PUT("/todos/:userID/:ID", tc.UpdateTodo)
 	e.DELETE("/todos/:userID/:ID", tc.DeleteTodo)
 
-	// Login
-	// Tampilkan semua data
-	// e.GET("/users", GetAllUsers)
 	e.Start(":8000")
 }
