@@ -16,6 +16,7 @@ type setting struct {
 	Password string
 	Port     string
 	DBNAME   string
+	Passkey  string
 }
 
 func ImportSetting() setting {
@@ -29,6 +30,7 @@ func ImportSetting() setting {
 	result.Password = os.Getenv("pospw")
 	result.Port = os.Getenv("posport")
 	result.DBNAME = os.Getenv("dbname")
+	result.Passkey = os.Getenv("passkey")
 	return result
 }
 
